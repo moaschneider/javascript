@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        .container {
+            background-color: #dbdbdb;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 0px 15px 15px 0px;
+            width: 200px;
+            float: left;
+        }
+
+        form {
+            min-height: 170px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container input {
+            height: 22px;
+            width: 100px;
+            padding: 2px;
+            border-radius: 5px;
+        }
+        .container button {
+            height: 30px;
+            width: 80px;
+            border-radius: 5px;
+        }
+        p {
+            margin: 2px 0;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>testes javascript</h1>
+
+    <div class="container calculos">
+        <form id="calculos">
+            <div>
+                <label for="num01">Número 01</label>
+                <input type="number" id="num01">
+            </div>
+            <div>
+                <label for="num02">Número 02</label>
+                <input type="number" id="num02">
+            </div>
+            <div>
+                <button type="submit" id="botao01" onclick="subtracao()">
+                    Subtração
+                </button>
+                <button type="submit" id="botao02" onclick="soma()">
+                    Soma
+                </button>
+            </div>
+            <div>
+                <label for="campo-resultado">Resultado</label>
+                <input type="number" id="campo-resultado">
+            </div>
+        </form>
+        <div id="historico-calculos" style="margin-top: 10px;"></div>
+    </div>
+    
+    <div class="container horario">
+        <button id="botao" onclick="pegaData()">
+            Horário
+        </button>
+        <div id="historico-data" style="margin-top: 10px;"></div>
+    </div>
+
+    <div class="container">
+        teste
+    </div>
+    
+    <script>
+        document.querySelector('#calculos').addEventListener('submit', function(e){
+            e.preventDefault();
+        });
+        
+        function subtracao(){
+            const num01 = Number(document.getElementById('num01').value);
+            const num02 = Number(document.getElementById('num02').value);
+            const resultado = document.getElementById('campo-resultado');
+            const subtracao = num01 - num02;
+            resultado.value = subtracao;
+            const historico = document.getElementById('historico-calculos');
+            historico.innerHTML += `<p>${num01} - ${num02} = ${subtracao}</p>`;
+        }
+
+        function soma(){
+            const num01 = Number(document.getElementById('num01').value);
+            const num02 = Number(document.getElementById('num02').value);
+            const resultado = document.getElementById('campo-resultado');
+            const soma = num01 + num02;
+            resultado.value = soma;
+            const historico = document.getElementById('historico-calculos');
+            historico.innerHTML += `<p>${num01} + ${num02} = ${soma}</p>`;
+        }
+
+
+        function zeroAEsquerda(num){
+            return num >= 10 ? num : `0${num}`;
+        }
+
+        function pegaData(){
+        const data = new Date();
+        
+        const dia = zeroAEsquerda(data.getDate());
+        const mes = zeroAEsquerda(data.getMonth() + 1);
+        const ano = zeroAEsquerda(data.getFullYear());
+        const hora = zeroAEsquerda(data.getHours());
+        const min = zeroAEsquerda(data.getMinutes());
+        const seg = zeroAEsquerda(data.getSeconds());
+        const tz = zeroAEsquerda(data.getTimezoneOffset());
+        
+        const dataHoje = `<p>${dia}/${mes}/${ano} ${hora}:${min}:${seg}</p>`;
+        document.getElementById('historico-data').innerHTML += dataHoje;
+        }
+
+
+    </script>
+</body>
+</html>
